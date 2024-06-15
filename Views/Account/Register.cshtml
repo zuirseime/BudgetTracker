@@ -1,0 +1,55 @@
+@model BudgetTracker.Views.Account.RegisterViewModel
+@{
+    ViewData["Title"] = "Sign Up";
+}
+
+<div class="row">
+    <div class="mx-auto mt-4 w-50 widget">
+        <h2 class="mb-4 text-center">@ViewData["Title"]</h2>
+
+        <form asp-action="Register">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="row">
+                <div class="col">
+                    <div class="mb-3 form-floating">
+                        <input type="text" class="form-control" asp-for="FirstName" placeholder="">
+                        <label asp-for="FirstName"></label>
+                        <span class="text-danger" asp-validation-for="FirstName"></span>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="mb-3 form-floating">
+                        <input type="text" class="form-control" asp-for="LastName" placeholder="">
+                        <label asp-for="LastName"></label>
+                        <span class="text-danger" asp-validation-for="LastName"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-3 form-floating">
+                <input type="email" class="form-control" asp-for="Email" placeholder="">
+                <label asp-for="Email"></label>
+                <span class="text-danger" asp-validation-for="Email"></span>
+            </div>
+
+            <div class="mb-3 form-floating">
+                <input type="password" class="form-control" asp-for="Password" placeholder="">
+                <label asp-for="Password"></label>
+                <span class="text-danger" asp-validation-for="Password"></span>
+            </div>
+            
+            <div class="mb-3 form-floating">
+                <input type="password" class="form-control" asp-for="ConfirmPassword" placeholder="">
+                <label asp-for="ConfirmPassword"></label>
+                <span class="text-danger" asp-validation-for="ConfirmPassword"></span>
+            </div>
+
+            <button type="submit" class="btn btn-dark px-5 mt-3">Register</button>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

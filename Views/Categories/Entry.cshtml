@@ -1,0 +1,44 @@
+@using BudgetTracker.Models
+@model BudgetTracker.Models.Category
+@{
+    ViewData["Title"] = Model.Id == 0 ? "Create a new category" : "Edit the category";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div class="row">
+    <div class="mt-4 widget col-md-6">
+        <form asp-action="Entry">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <input type="hidden" asp-for="Id" value="@Model.Id" />
+
+            <div class="mb-3">
+                <div class="btn-group" role="group" aria-label="Types">
+                    <input type="radio" class="btn-check" asp-for="Type" id="expense" value="@CategoryType.Expense" checked="@(Model.Type == CategoryType.Expense)" />
+                <label class="btn btn-outline-dark" for="expense">@CategoryType.Expense.ToString()</label>
+
+                <input type="radio" class="btn-check" asp-for="Type" id="income" value="@CategoryType.Income" checked="@(Model.Type == CategoryType.Income)" />
+                <label class="btn btn-outline-dark" for="income">@CategoryType.Income.ToString()</label>
+                </div>
+            </div>
+
+            <div class="mb-3 form-floating">
+                <input type="text" class="form-control" asp-for="Title" placeholder="">
+                <label asp-for="Title">Category title</label>
+                <span class="text-danger" asp-validation-for="Title"></span>
+            </div>
+
+            <div class="mb-3 form-floating">
+                <input type="text" class="form-control" asp-for="Icon" placeholder="">
+                <label asp-for="Icon">Icon</label>
+                <span class="text-danger" asp-validation-for="Icon"></span>
+            </div>
+
+            <button type="submit" class="btn btn-dark px-5 mt-3">Save</button>
+        </form>
+    </div>
+    <div class="mt-4 widget col-md-5">
+        
+    </div>
+</div>

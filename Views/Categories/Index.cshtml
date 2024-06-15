@@ -1,0 +1,59 @@
+@using BudgetTracker
+@using BudgetTracker.Models
+@{
+    ViewData["Title"] = "Categories";
+}
+
+<h1>@ViewData["Title"]</h1>
+@if (User.IsInRole(Globals.AdminRole)) {
+    <a href="/categories/entry/" class="btn btn-primary">+ New category</a>
+}
+
+<div class="mt-4 widget">
+    <table class="table table-hover">
+        <thead class="thead-light table-dark">
+            <tr>
+                <th scope="col" class="col-fixed-width"></th>
+                <th scope="col" class="col-expand">Category</th>
+                <th scope="col" class="col-expand">Type</th>
+                @if (User.IsInRole(Globals.AdminRole)) {
+                    <th scope="col" class="col-expand">Actions</th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Category category in Model) {
+                <tr>
+                    <td>@category.Icon</td>
+                    <td>@category.Title</td>
+                    <td>
+                        @if (@category.Type == CategoryType.Income) {
+                            <span class="badge bg-success py-1 px-4">@category.Type.ToString()</span>
+                        }
+                        else if (@category.Type == CategoryType.Expense) {
+                            <span class="badge bg-danger py-1 px-4">@category.Type.ToString()</span>
+                        }
+                    </td>
+                    
+                    @if (User.IsInRole(Globals.AdminRole)) {
+                        <td>
+                            <div class="d-flex justify-content-start">
+                                <a class="btn btn-sm" href="/categories/entry/@category.Id">
+                                    <i class="fa-solid fa-pen fa-lg"></i>
+                                </a>
+                                
+                                <form action="/categoies/delete/@category.Id" method="post">
+                                    @Html.AntiForgeryToken()
+                                    <button type="submit" class="btn btn-sm"
+                                            onclick="return confirm(&quot;Are sure to delete this record?&quot;)">
+                                        <i class="fa-solid fa-trash-can fa-lg" style="color:rgb(209, 29, 29)"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        </td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

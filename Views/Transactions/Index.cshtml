@@ -1,0 +1,46 @@
+@using BudgetTracker
+@using BudgetTracker.Models
+@{
+    ViewData["Title"] = "Transactions";
+}
+
+<h1>@ViewData["Title"]</h1>
+<a href="/transactions/entry/" class="btn btn-primary">+ New category</a>
+
+<div class="mt-4 widget">
+    <table class="table table-hover">
+        <thead class="thead-light table-dark">
+            <tr>
+                <th scope="col" class="col-expand">Category</th>
+                <th scope="col" class="col-expand">Date</th>
+                <th scope="col" class="col-expand">Amount</th>
+                <th scope="col" class="col-expand">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Transaction transaction in Model) {
+                <tr>
+                    <td>@transaction.Category!.FullTitle</td>
+                    <td>@transaction.Date</td>
+                    <td>@transaction.FormattedAmount</td>
+                    
+                    <td>
+                        <div class="d-flex justify-content-start">
+                            <a class="btn btn-sm" href="/transactions/entry/@transaction.Id">
+                                <i class="fa-solid fa-pen fa-lg"></i>
+                            </a>
+                            
+                            <form action="/transactions/delete/@transaction.Id" method="post">
+                                @Html.AntiForgeryToken()
+                                <button type="submit" class="btn btn-sm"
+                                        onclick="return confirm(&quot;Are sure to delete this record?&quot;)">
+                                    <i class="fa-solid fa-trash-can fa-lg" style="color:rgb(209, 29, 29)"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
