@@ -1,0 +1,46 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+.widget {
+  border-radius: 1rem;
+  border: 2px solid #e9ecf0;
+  background-color: #f1f3f7;
+  padding: 3rem;
+  margin: 1rem;
+}
+
+
+.col-fixed-width {
+  width: 1ch; /* Width based on the width of one character */
+}
+.col-equal-width {
+  width: 25%; /* Equal width for 2nd and 3rd columns */
+}
+.col-expand {
+  width: auto; /* Take the remaining width */
+}
+
+
+.widget {
+  border-radius: 1rem;
+}
