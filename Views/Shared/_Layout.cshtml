@@ -3,6 +3,10 @@
 @inject UserManager<User> UserManager
 @inject SignInManager<User> SignInManager
 
+@{
+    User? currentUser = @UserManager.GetUserAsync(User).Result;
+}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,9 +20,9 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-dark border-bottom border-body box-shadow mb-3" data-bs-theme="dark">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-controller="Home" asp-action="Index">BudgetTracker</a>
+                <a class="navbar-brand text-light" asp-controller="Home" asp-action="Index">BudgetTracker</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -26,9 +30,9 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     
                     <ul class="navbar-nav dropdown flex-grow-1">
-                        <a class="nav-link text-dark dropdown-toggle" role="button" data-bs-toggle="dropdown">Links</a>
+                        <a class="nav-link text-light dropdown-toggle" role="button" data-bs-toggle="dropdown">Links</a>
                         
-                        <ul class="dropdown-menu">
+                        <ul class="dropdown-menu dropdown-menu-dark">
                             <li><a class="dropdown-item" asp-controller="Categories" asp-action="Index">Categories</a></li>
                             <li><a class="dropdown-item" asp-controller="Transactions" asp-action="Index">Transactions</a></li>
                         </ul>
@@ -36,20 +40,25 @@
 
                     <ul class="navbar-nav flex-grow-2">
                         @if (SignInManager.IsSignedIn(User)) {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Account" asp-action="Index">@UserManager.GetUserAsync(User)?.Result?.FullName</a>
+                            <li class="navbar-nav">
+                                <a class="nav-link text-dark" asp-controller="Account" asp-action="Index" asp-route-username="@currentUser?.UserName">
+                                    <div class="d-sm-flex flex-row">
+                                        <img src="@Globals.GetUserPic(@currentUser?.ImageURI!)" class="user-pic-sm">
+                                        <div class="px-2 align-self-center text-light">@currentUser?.FullName</div>
+                                    </div>
+                                </a>
                             </li>
-                            <form asp-controller="Account" asp-action="Logout" method="post"class="nav-item">
-                                <button type="submit" class="btn navbar-btn navbar-link">Log Out</button>
+                            <form asp-controller="Account" asp-action="Logout" method="post" class="nav-item">
+                                <button type="submit" class="btn navbar-btn navbar-link text-light">Log Out</button>
                             </form>
                         } 
                         else 
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Account" asp-action="Login">Sign In</a>
+                                <a class="nav-link text-light" asp-controller="Account" asp-action="Login">Sign In</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Account" asp-action="Register">Sign Up</a>
+                                <a class="nav-link text-light" asp-controller="Account" asp-action="Register">Sign Up</a>
                             </li>
                         }
                     </ul>
@@ -65,7 +74,7 @@
     </div>
 
     <footer class="border-top footer text-muted">
-        <div class="container">
+        <div class="px-3" style="background-color: #fff;">
             &copy; 2024 - BudgetTracker - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
