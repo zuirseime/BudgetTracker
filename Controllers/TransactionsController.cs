@@ -49,7 +49,7 @@ namespace BudgetTracker.Controllers
                 await context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            PopulateCategories();
+            await PopulateCategories();
             return View(transaction);
         }
 
