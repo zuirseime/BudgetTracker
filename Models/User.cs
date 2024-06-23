@@ -10,6 +10,8 @@ namespace BudgetTracker.Models
         [Required(ErrorMessage = "Last name is requiered")] public string LastName { get; set; } = null!;
         [NotMapped] public string FullName => $"{FirstName} {LastName}";
 
+        public string ImageURI { get; set; } = "ImagePlaceholder.png";
+
         public DateOnly RegistationDate { get; set; } = DateOnly.FromDateTime(DateTime.UtcNow);
     }
 }
